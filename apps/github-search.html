@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>GitHub Search</title>
+
+  <!-- GitHub-themed styles -->
+  <style>
+    :root {
+      --bg-light: #F6F8FA;
+      --text-light: #24292E;
+      --bg-dark:  #0D1117;
+      --text-dark: #C9D1D9;
+      --nav-bg:   #24292E;
+      --accent:   #58A6FF;
+      --border:   #DDD;
+      --border-dark: #444;
+    }
+
+    /* Base */
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+      background: var(--bg-light);
+      color: var(--text-light);
+      transition: background 0.3s, color 0.3s;
+    }
+    body.dark {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3 { margin-top: 0; }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+      background: var(--nav-bg);
+      height: 50px;
+    }
+    .navbar .logo svg { height: 32px; fill: white; }
+    .navbar a {
+      margin: 0 0.75rem;
+      padding: 0.5rem 0;
+      color: #C9D1D9;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .navbar a.active,
+    .navbar a:hover {
+      border-color: var(--accent);
+    }
+    .theme-toggle {
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: #C9D1D9;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    /* Layout */
+    .container { padding: 1rem; }
+    .section { display: none; animation: fadeIn 0.3s; }
+    .section.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+
+    /* Input & Buttons */
+    .input-group {
+      margin-bottom: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .input-group select,
+    .input-group input {
+      padding: 0.5rem;
+      font-size: 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+    .input-group button,
+    .readme-btn {
+      padding: 0.5rem 0.75rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    /* Profile */
+    .user-profile {
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    body.dark .user-profile { border-color: var(--border-dark); }
+    .user-profile img {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      margin-right: 1rem;
+    }
+    .user-info p { margin: 0.25rem 0; font-size: 0.9rem; }
+    .user-stats { display: flex; gap: 1rem; margin-top: 0.5rem; font-size: 0.85rem; }
+
+    /* Repo List */
+    #reposHeader { margin-top: 1rem; }
+    .repo-list { list-style: none; padding: 0; }
+    .repo-list li {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    body.dark .repo-list li { border-color: var(--border-dark); }
+    .repo-list li p { margin: 0.25rem 0; font-size: 0.9rem; }
+    .repo-list li .readme-content {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+      margin-top: 0.5rem;
+      display: none;
+      background: inherit;
+    }
+    body.dark .repo-list li .readme-content {
+      border-color: var(--border-dark);
+    }
+    .repo-list li .readme-content img {
+      max-width: 100%;
+    }
+  </style>
+
+  <!-- Markdown parser -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">
+      <!-- GitHub Octocat SVG (simplified) -->
+      <svg viewBox="0 0 16 16" aria-hidden="true">
+        <path fill-rule="evenodd" d="M8 0C3.58 0 . . . 8z"/>
+      </svg>
+    </div>
+    <a href="#home"   class="nav-link active">Home</a>
+    <a href="#search" class="nav-link">Search</a>
+    <a href="#about"  class="nav-link">About</a>
+    <button id="themeToggle" class="theme-toggle">Dark Mode</button>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="container">
+    <section id="home" class="section active">
+      <h1>Welcome!</h1>
+      <p>Search for GitHub users or repositories, then view their READMEs inline.</p>
+    </section>
+
+    <section id="search" class="section">
+      <h2>GitHub Search</h2>
+      <div class="input-group">
+        <select id="searchType">
+          <option value="user">User</option>
+          <option value="repo">Repository</option>
+        </select>
+        <input id="queryInput" type="text" placeholder="Enter username or repo keyword…" />
+        <button id="searchBtn">Search</button>
+      </div>
+
+      <!-- Profile result -->
+      <div id="userProfile"></div>
+
+      <!-- Repo results -->
+      <h2 id="reposHeader" style="display:none"></h2>
+      <ul id="repoList" class="repo-list"></ul>
+    </section>
+
+    <section id="about" class="section">
+      <h2>About This Demo</h2>
+      <p>This single‐page HTML/CSS/JS app mimics GitHub’s clean UI, supports user & repo search, and renders README.md inline.</p>
+    </section>
+  </main>
+
+  <!-- INTERACTIVE SCRIPT -->
+  <script>
+    // NAV SWITCH
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const tgt = link.getAttribute('href').slice(1);
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(tgt).classList.add('active');
+        document.querySelectorAll('.nav-link').forEach(x => x.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
+
+    // THEME TOGGLE
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      themeToggle.textContent = document.body.classList.contains('dark')
+        ? 'Light Mode'
+        : 'Dark Mode';
+    });
+
+    // ELEMENTS
+    const searchType  = document.getElementById('searchType');
+    const queryInput  = document.getElementById('queryInput');
+    const searchBtn   = document.getElementById('searchBtn');
+    const userProfile = document.getElementById('userProfile');
+    const reposHeader = document.getElementById('reposHeader');
+    const repoList    = document.getElementById('repoList');
+
+    // MAIN SEARCH HANDLER
+    searchBtn.addEventListener('click', () => {
+      const q = queryInput.value.trim();
+      if (!q) return;
+      if (searchType.value === 'user') {
+        queryInput.placeholder = "Search username";
+        fetchUser(q);
+      } else {
+        fetchRepositories(q);
+        queryInput.placeholder = "Search repository";
+      }
+    });
+
+    // FETCH & RENDER USER
+    async function fetchUser(username) {
+      userProfile.innerHTML = '<p>Loading profile…</p>';
+      repoList.innerHTML = '';
+      reposHeader.style.display = 'none';
+
+      try {
+        const uRes = await fetch(`https://api.github.com/users/${username}`);
+        if (!uRes.ok) throw new Error('User not found');
+        const u = await uRes.json();
+
+        // profile
+        userProfile.innerHTML = `
+          <div class="user-profile">
+            <img src="${u.avatar_url}" alt="${u.login} avatar" />
+            <div class="user-info">
+              <h3><a href="${u.html_url}" target="_blank">${u.name || u.login}</a></h3>
+              ${u.bio ? `<p>${u.bio}</p>` : ''}
+              <div class="user-stats">
+                <span>📦 ${u.public_repos} repos</span>
+                <span>👥 ${u.followers} followers</span>
+                <span>➡️ ${u.following} following</span>
+              </div>
+            </div>
+          </div>
+        `;
+
+        // repos
+        const rRes = await fetch(
+          `https://api.github.com/users/${username}/repos?sort=updated`
+        );
+        const repos = await rRes.json();
+        reposHeader.style.display = 'block';
+        reposHeader.textContent = `${u.login}’s Repositories`;
+        repoList.innerHTML = repos.length
+          ? repos.map(r => `
+              <li data-fullname="${r.full_name}">
+                <a href="${r.html_url}" target="_blank">${r.name}</a>
+                ${r.description ? `<p>${r.description}</p>` : ''}
+                <button class="readme-btn">View README</button>
+                <div class="readme-content"></div>
+              </li>
+            `).join('')
+          : '<li>No repositories found.</li>';
+
+      } catch (err) {
+        userProfile.innerHTML = `<p style="color:tomato">${err.message}</p>`;
+      }
+    }
+
+    // FETCH & RENDER REPO SEARCH
+    async function fetchRepositories(keyword) {
+      userProfile.innerHTML = '';
+      reposHeader.style.display = 'block';
+      reposHeader.textContent = `Repository Results for “${keyword}”`;
+      repoList.innerHTML = '<li>Searching repositories…</li>';
+
+      try {
+        const res = await fetch(
+          `https://api.github.com/search/repositories?q=${encodeURIComponent(keyword)}&sort=stars`
+        );
+        if (!res.ok) throw new Error('Search failed');
+        const data = await res.json();
+
+        repoList.innerHTML = data.items.length
+          ? data.items.map(r => `
+              <li data-fullname="${r.full_name}">
+                <a href="${r.html_url}" target="_blank">${r.full_name}</a>
+                ${r.description ? `<p>${r.description}</p>` : ''}
+                <p>⭐ ${r.stargazers_count} | 🖥️ ${r.language || '—'}</p>
+                <button class="readme-btn">View README</button>
+                <div class="readme-content"></div>
+              </li>
+            `).join('')
+          : '<li>No matching repositories found.</li>';
+
+      } catch (err) {
+        repoList.innerHTML = `<li style="color:tomato">${err.message}</li>`;
+      }
+    }
+
+    // DELEGATED HANDLER FOR README BUTTONS
+    repoList.addEventListener('click', async e => {
+      if (!e.target.classList.contains('readme-btn')) return;
+      const btn = e.target;
+      const li = btn.closest('li');
+      const readmeDiv = li.querySelector('.readme-content');
+      const fullname = li.getAttribute('data-fullname');
+
+      if (readmeDiv.style.display === 'block') {
+        readmeDiv.style.display = 'none';
+        btn.textContent = 'View README';
+        return;
+      }
+
+      // first time: fetch & render
+      if (!readmeDiv.innerHTML.trim()) {
+        readmeDiv.textContent = 'Loading README…';
+        try {
+          const r = await fetch(`https://api.github.com/repos/${fullname}/readme`, {
+            headers: { Accept: 'application/vnd.github.v3.raw' }
+          });
+          if (!r.ok) throw new Error('README not found');
+          const md = await r.text();
+          readmeDiv.innerHTML = marked.parse(md);
+        } catch (err) {
+          readmeDiv.innerHTML = `<p style="color:tomato">${err.message}</p>`;
+        }
+      }
+
+      readmeDiv.style.display = 'block';
+      btn.textContent = 'Hide README';
+    });
+  </script>
+</body>
+</html>
