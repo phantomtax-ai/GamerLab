@@ -32,7 +32,7 @@
   const canvas = document.getElementById('screen');
 
   playBtn.addEventListener('click', () => {
-    fetch('roms/PokeYellow.gbc')
+    fetch('games/roms/PokeYellow.gbc')
       .then(res => res.arrayBuffer())
       .then(buffer => {
         const emulator = new GameBoy(canvas);
