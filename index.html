@@ -1,3 +1,4 @@
+<html>
 <head>
   <title>Gamer Lab</title>
 </head>
@@ -17,41 +18,29 @@
 
     <!-- 🎮 Retro Play Zone -->
     <section id="gameboy-zone">
-      <h2>Play GBC ROMs</h2>
-      <select id="romSelect">
-        <option value="roms/PokeYellow.gbc">Pokémon Yellow</option>
-        <option value="roms/TLZ-LA.gbc">Links Awakening</option>
-      </select>
-      <canvas id="screen" width="160" height="144"></canvas>
-    </section>
-  </main>
+  <h2>Retro Play Zone</h2>
+  <button id="playButton">Play Pokémon</button>
+  <canvas id="screen" width="160" height="144"></canvas>
+</section>
 
-  <!-- Your site footer -->
-  <footer>
-    <p>© Gamer Lab</p>
-  </footer>
+<script src="emulator/js/cpu.js"></script>
+<script src="emulator/js/gpu.js"></script>
+<!-- Include other JSGB files as needed -->
 
-  <!-- Emulator scripts -->
-  <script src="emulator/js/cpu.js"></script>
-  <script src="emulator/js/gpu.js"></script>
-  <!-- Add remaining emulator files -->
+<script>
+  const playBtn = document.getElementById('playButton');
+  const canvas = document.getElementById('screen');
 
-  <!-- ROM loader logic -->
-  <script>
-    const canvas = document.getElementById('screen');
-    const selector = document.getElementById('romSelect');
+  playBtn.addEventListener('click', () => {
+    fetch('roms/pokemon.gbc')
+      .then(res => res.arrayBuffer())
+      .then(buffer => {
+        const emulator = new GameBoy(canvas);
+        emulator.loadROM(buffer);
+        emulator.start();
+      });
+  });
+</script>
 
-    selector.addEventListener('change', () => {
-      const romPath = selector.value;
-      fetch(romPath)
-        .then(res => res.arrayBuffer())
-        .then(buffer => {
-          const emulator = new GameBoy(canvas);
-          emulator.loadROM(buffer);
-          emulator.start();
-        });
-    });
-
-    selector.dispatchEvent(new Event('change'));
-  </script>
 </body>
+</html>
