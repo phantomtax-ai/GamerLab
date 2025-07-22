@@ -1,8 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Gamer Lab</title>
-    <meta charset="utf-9">
-    <meta name="description" content="Welcome to GamerLab, a collection of games we all love! Enjoy classic, up and coming, and so many more games right here on GamerLab!">
-  </head>
-</html>
+<head>
+  <title>Gamer Lab</title>
+</head>
+<body>
+
+  <header>
+    <h1>Welcome to Gamer Lab</h1>
+    <nav>...your links...</nav>
+  </header>
+
+  <!-- Other site content -->
+  <main>
+    <section>
+      <h2>About Me</h2>
+      <p>Creative dev, pixel artist, emulator wizard—you know the vibe.</p>
+    </section>
+
+    <!-- 🎮 Retro Play Zone -->
+    <section id="gameboy-zone">
+      <h2>Play GBC ROMs</h2>
+      <select id="romSelect">
+        <option value="roms/PokeYellow.gbc">Pokémon Yellow</option>
+        <option value="roms/TLZ-LA.gbc">Links Awakening</option>
+      </select>
+      <canvas id="screen" width="160" height="144"></canvas>
+    </section>
+  </main>
+
+  <!-- Your site footer -->
+  <footer>
+    <p>© Gamer Lab</p>
+  </footer>
+
+  <!-- Emulator scripts -->
+  <script src="emulator/js/cpu.js"></script>
+  <script src="emulator/js/gpu.js"></script>
+  <!-- Add remaining emulator files -->
+
+  <!-- ROM loader logic -->
+  <script>
+    const canvas = document.getElementById('screen');
+    const selector = document.getElementById('romSelect');
+
+    selector.addEventListener('change', () => {
+      const romPath = selector.value;
+      fetch(romPath)
+        .then(res => res.arrayBuffer())
+        .then(buffer => {
+          const emulator = new GameBoy(canvas);
+          emulator.loadROM(buffer);
+          emulator.start();
+        });
+    });
+
+    selector.dispatchEvent(new Event('change'));
+  </script>
+</body>
