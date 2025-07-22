@@ -19,7 +19,7 @@
     <!-- 🎮 Retro Play Zone -->
     <section id="gameboy-zone">
   <h2>Retro Play Zone</h2>
-  <button id="playButton">Play Pokémon</button>
+  <button id="playButton">Play Pokémon Yellow</button>
   <canvas id="screen" width="160" height="144"></canvas>
 </section>
 
@@ -32,7 +32,7 @@
   const canvas = document.getElementById('screen');
 
   playBtn.addEventListener('click', () => {
-    fetch('roms/pokemon.gbc')
+    fetch('roms/PokeYellow.gbc')
       .then(res => res.arrayBuffer())
       .then(buffer => {
         const emulator = new GameBoy(canvas);
