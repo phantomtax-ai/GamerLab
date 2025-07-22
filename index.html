@@ -3,44 +3,7 @@
   <title>Gamer Lab</title>
 </head>
 <body>
-
-  <header>
     <h1>Welcome to Gamer Lab</h1>
-    <nav>...your links...</nav>
-  </header>
-
-  <!-- Other site content -->
-  <main>
-    <section>
-      <h2>About Me</h2>
-      <p>Gamer/Dev/Admin you get it</p>
-    </section>
-
-    <!-- 🎮 Retro Play Zone -->
-    <section id="gameboy-zone">
-  <h2>Retro Play Zone</h2>
-  <button id="playButton">Play Pokémon Yellow</button>
-  <canvas id="screen" width="160" height="144"></canvas>
-</section>
-
-<script src="emulator/js/cpu.js"></script>
-<script src="emulator/js/gpu.js"></script>
-<!-- Include other JSGB files as needed -->
-
-<script>
-  const playBtn = document.getElementById('playButton');
-  const canvas = document.getElementById('screen');
-
-  playBtn.addEventListener('click', () => {
-    fetch('games/roms/PokeYellow.gbc')
-      .then(res => res.arrayBuffer())
-      .then(buffer => {
-        const emulator = new GameBoy(canvas);
-        emulator.loadROM(buffer);
-        emulator.start();
-      });
-  });
-</script>
-
+    
 </body>
 </html>
