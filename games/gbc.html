@@ -1,0 +1,28 @@
+<body>
+  <h2>Choose a Game Boy Color ROM</h2>
+  <select id="romSelect">
+    <option value="roms/PokeYellow.gbc">Pokémon</option>
+    <option value="roms/TLZ-LA.gbc">Zelda</option>
+  </select>
+  <canvas id="screen" width="160" height="144"></canvas>
+
+  <script src="emulator/gameboy.js"></script>
+  <script>
+    const canvas = document.getElementById('screen');
+    const selector = document.getElementById('romSelect');
+
+    selector.addEventListener('change', () => {
+      const romPath = selector.value;
+      fetch(romPath)
+        .then(res => res.arrayBuffer())
+        .then(buffer => {
+          const emulator = new GameBoy(canvas);
+          emulator.loadROM(buffer);
+          emulator.start();
+        });
+    });
+
+    // Auto-load first ROM when page opens
+    selector.dispatchEvent(new Event('change'));
+  </script>
+</body>
