@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Game Live Play</title>
+    <style>
+      body {
+        background-color: #121212;
+        color: #f5f5f5;
+        font-family: sans-serif;
+        text-align: center;
+        padding-top: 80px;
+        margin: 0;
+      }
+      h1 {
+        color: #00ffc3;
+        margin-top: 40px;
+      }
+      .top-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 14px 20px;
+        background-color: #1e1e1e;
+        border-radius: 0 0 20px 20px;
+        box-shadow: 0 0 10px #00ffc3;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        z-index: 1000;
+      }
+      .top-bar a {
+        color: #00ffc3;
+        text-decoration: none;
+        font-size: 18px;
+        padding: 8px 16px;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+      }
+      .top-bar a:hover {
+        background-color: #00ffc340;
+      }
+      .game-container {
+        margin: 20px auto;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .button {
+        padding: 12px 24px;
+        font-size: 16px;
+        background-color: #00ffc3;
+        color: #000;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.3s ease-in-out;
+      }
+      .button:hover {
+        background-color: #00cc9b;
+        box-shadow: -5px 5px 5px 0px #333333;
+      }
+      .button img {
+        vertical-align: middle;
+        width: 16px;
+        height: 16px;
+        margin-right: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top-bar">
+      <a href="../../../index.html">🏠 Back to Home</a>
+      <a href="../../../apps/index.html">🧩 Apps Home</a>
+    </div>
+
+    <h1>Download Your Games 🕹️</h1>
+
+    <div class="game-container">
+      <a class="button" href="/downloads/example1.iso">Play Example 1</a>
+      <a class="button" href="/downloads/example1.iso" download>
+        <img src="https://img.icons8.com/material-outlined/24/download--v1.png" alt="Download Icon" />
+        Download
+      </a>
+    </div>
+
+    <div class="game-container">
+      <a class="button" href="/downloads/example2.iso">Play Example 2</a>
+      <a class="button" href="/downloads/example2.iso" download>
+        <img src="https://img.icons8.com/material-outlined/24/download--v1.png" alt="Download Icon" />
+        Download
+      </a>
+    </div>
+
+    <div class="game-container">
+      <a class="button" href="/downloads/example3.iso">Play Example 3</a>
+      <a class="button" href="/downloads/example3.iso" download>
+        <img src="https://img.icons8.com/material-outlined/24/download--v1.png" alt="Download Icon" />
+        Download
+      </a>
+    </div>
+  </body>
+</html>
