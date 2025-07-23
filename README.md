@@ -27,6 +27,11 @@ There are no official deployments for GamerLab yet, but eventually in the future
 - Open source
 - Games for school
 
+## Links
+- [Suggestion Form](https://docs.google.com/forms/d/e/1FAIpQLSeurvw-RTLQE7AeZkYAURFqvNZsXnOwBKGVhR-7bO_lHFGeDw/viewform?usp=dialog)
+- [Seraph](https://www.github.com/a456pur/seraph)
+- [Gamer Hub](https://www.github.com/rcreator822/GamerHub)
+
 ## Acknowledgements
 Many games are sourced from [Seraph](https://www.github.com/a456pur/seraph) by [a456pur](https://www.github.com/a456pur) among other game sites. Mainly developed by [phantomtax-ai](https://www.github.com/phantomtax-ai), [samuelbianchi73](https://www.github.com/samuelbianchi73), and [rcreator822](https://www.github.com/rcreator822).
 
