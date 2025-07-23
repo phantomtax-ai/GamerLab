@@ -2,19 +2,13 @@
 <html>
   <head>
     <title>Gamer Lab</title>
-
-    <!--Chatset.-->
     <meta charset="utf-8" />
-
-    <!--Favicons (icons) and web manifest data. Needs so many for different screens and browsers.-->
     <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
     <link rel="shortcut icon" href="/favicon/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Gamer Lab" />
     <link rel="manifest" href="/favicon/site.webmanifest" />
-
-    <!--Description.-->
     <meta name="description" content="Welcome to GamerLab, a collection of games we all love! Enjoy classic, up and coming, and so many more games right here on GamerLab!" />
     <style>
       body {
@@ -54,34 +48,35 @@
       .top-bar a:hover {
         background-color: #00ffc340;
       }
-      .app-container {
-        margin: 20px auto;
+      .card-container {
         display: flex;
         justify-content: center;
-        gap: 10px;
         flex-wrap: wrap;
-        align-items: center;
+        gap: 20px;
+        margin: 40px auto;
+        max-width: 900px;
       }
-      .button {
-        padding: 12px 24px;
-        font-size: 16px;
-        background-color: #00ffc3;
-        color: #000;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
+      .card {
+        background-color: #1e1e1e;
+        border-radius: 12px;
+        box-shadow: 0 0 15px #00ffc3;
+        padding: 20px;
+        width: 280px;
+        text-align: left;
+        transition: transform 0.3s ease;
         text-decoration: none;
-        transition: all 0.3s ease-in-out;
+        color: #f5f5f5;
       }
-      .button:hover {
-        background-color: #00cc9b;
-        box-shadow: -5px 5px 5px 0px #333333;
+      .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px #00ffc3;
       }
-      .button img {
-        vertical-align: middle;
-        width: 16px;
-        height: 16px;
-        margin-right: 6px;
+      .card h2 {
+        margin-top: 0;
+        color: #00ffc3;
+      }
+      .card p {
+        margin-bottom: 0;
       }
     </style>
   </head>
@@ -92,29 +87,17 @@
       <a href="/apps/index.html">🧩 Apps</a>
     </div>
 
-    <h1>Download Your Games 🕹️</h1>
+    <h1>Explore GamerLab 🎮</h1>
 
-    <div class="app-container">
-      <a class="button" href="example1.iso">Use Example 1</a>
-      <a class="button" href="example1.iso" download>
-        <img src="https://img.icons8.com/material-outlined/24/download--v1.png" alt="Download Icon" />
-        Download
+    <div class="card-container">
+      <a class="card" href="/games/library/gc/index.html">
+        <h2>🎮 Games Library</h2>
+        <p>Browse all your favorite classics and new titles. Play, explore, and discover what’s next!</p>
       </a>
-    </div>
 
-    <div class="app-container">
-      <a class="button" href="example2.iso">Use Example 2</a>
-      <a class="button" href="example2.iso" download>
-        <img src="https://img.icons8.com/material-outlined/24/download--v1.png" alt="Download Icon" />
-        Download
-      </a>
-    </div>
-
-    <div class="app-container">
-      <a class="button" href="example3.iso">Use Example 3</a>
-      <a class="button" href="example3.iso" download>
-        <img src="https://img.icons8.com/material-outlined/24/download--v1.png" alt="Download Icon" />
-        Download
+      <a class="card" href="/apps/index.html">
+        <h2>🧩 Apps Portal</h2>
+        <p>Access helpful tools and fun utilities to boost your dev experience and more.</p>
       </a>
     </div>
   </body>
