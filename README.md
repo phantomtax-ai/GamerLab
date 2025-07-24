@@ -12,8 +12,14 @@ cd GamerLab
 npm install
 npm start
 ```
-or run [`install.sh`](https://github.com/phantomtax-ai/GamerLab/blob/main/install.sh)
-or if you want the files without the Node.js do this:
+or run [`install.sh`](https://github.com/phantomtax-ai/GamerLab/blob/main/install.sh). To run [`install.sh`](https://github.com/phantomtax-ai/GamerLab/blob/main/install.sh) run this:
+```
+# Open a terminal and run:
+curl -O https://raw.githubusercontent.com/phantomtax-ai/GamerLab/main/install.sh
+chmod +x install.sh   # Make it executable
+./install.sh          # Run the script
+```
+If you want the files without the Node.js do this:
 ```
 git clone https://github.com/phantomtax-ai/GamerLab.git
 cd GamerLab
