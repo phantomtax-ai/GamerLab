@@ -10,7 +10,7 @@ If and/or when we add a Node.js proxy, run this in a dev terminal:
 git clone https://github.com/phantomtax-ai/GamerLab
 cd GamerLab
 npm install
-npm start
+npm run build
 ```
 or run [`install.sh`](https://github.com/phantomtax-ai/GamerLab/blob/main/install.sh). To run [`install.sh`](https://github.com/phantomtax-ai/GamerLab/blob/main/install.sh) run this:
 ```
