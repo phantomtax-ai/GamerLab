@@ -28,7 +28,13 @@ cd GamerLab
 ```
 
 ## Deployments
-There are no official deployments for GamerLab yet, but eventually in the future we will have one (or more!)
+The deployments of Gamer Lab are as the following:
+- [gamerlab.netlify.app](gamerlab.netlify.app)
+  - Netlify hosting
+  - Original release
+- [gamer-lab-one.vercel.app](gamer-lab-one.vercel.app)
+  - Vercel hosting
+  - Second/backup release
 
 ## Topics
 - Unblocked games
