@@ -2,7 +2,8 @@
 Welcome to GamerLab, a collection of games we all love! Enjoy classic, up and coming, and so many more games right here on GamerLab!
 [Gamerlab](https://gamerlab.netlify.app)
 ## Details
-Please star if you fork. Bugs can be reported at [this form](https://docs.google.com/forms/d/e/1FAIpQLSeurvw-RTLQE7AeZkYAURFqvNZsXnOwBKGVhR-7bO_lHFGeDw/viewform?usp=dialog) or in an issue.
+Please star if you fork. Bugs can be reported at [this form](https://docs.google.com/forms/d/e/1FAIpQLSeurvw-RTLQE7AeZkYAURFqvNZsXnOwBKGVhR-7bO_lHFGeDw/viewform?usp=dialog) or in an issue.\
+Made as an unblocked game site. Most references to blocking will mean computer admin blocking and GoGardian.
 
 ## Deploy on your own
 _`package.json` has not be created yet so you cannot use Node.js and npm installation._
